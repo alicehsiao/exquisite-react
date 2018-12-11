@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './PlayerSubmissionForm.css';
+import PropTypes from 'prop-types';
 
 class PlayerSubmissionForm extends Component {
 
@@ -27,7 +28,7 @@ class PlayerSubmissionForm extends Component {
           <div className="PlayerSubmissionForm__poem-inputs">
 
             {
-              // Put your form inputs here... We've put in one below as an example
+              this.populateInputs
             }
             <input
               placeholder="hm..."
@@ -43,5 +44,12 @@ class PlayerSubmissionForm extends Component {
     );
   }
 }
+
+PlayerSubmissionForm.propTypes = {
+  fields: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+  isSubmitted: PropTypes.bool.isRequired,
+  sendSubmissionCallback: PropTypes.func.isRequired,
+};
 
 export default PlayerSubmissionForm;
