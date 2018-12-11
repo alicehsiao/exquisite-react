@@ -8,6 +8,22 @@ class Game extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      index: 1,
+      submissions: [],
+      isSubmitted: false,
+    }
+  }
+
+  submitLine = (newLine) => {
+    this.setState({index: this.state.index + 1});
+
+    const submissions = this.state.submissions;
+    submissions.push(newLine);
+    this.setState({
+      submissions,
+    });
   }
 
   render() {
@@ -34,7 +50,7 @@ class Game extends Component {
 
         <RecentSubmission />
 
-        <PlayerSubmissionForm />
+        <PlayerSubmissionForm fields={FIELDS} index={ this.state.index } sendSubmissionCallback={ this.submitLine }/>
 
         <FinalPoem />
 
