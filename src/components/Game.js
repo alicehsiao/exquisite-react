@@ -10,7 +10,7 @@ class Game extends Component {
     super(props);
 
     this.state = {
-      index: 1,
+      player: 1,
       submissions: [],
       isSubmitted: false,
       lastLine: "",
@@ -52,7 +52,7 @@ class Game extends Component {
 
         <RecentSubmission lastLine={ this.state.lastLine } isSubmitted={this.state.isSubmitted}/>
 
-        <PlayerSubmissionForm fields={FIELDS} index={ this.state.index } sendSubmissionCallback={ this.submitLine } isSubmitted={this.state.isSubmitted}/>
+        <PlayerSubmissionForm fields={FIELDS} player={ this.state.player } sendSubmissionCallback={ this.submitLine } isSubmitted={this.state.isSubmitted}/>
 
         <FinalPoem poem={ this.state.submissions } isSubmitted={this.state.isSubmitted}/>
 

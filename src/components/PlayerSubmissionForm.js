@@ -17,22 +17,59 @@ class PlayerSubmissionForm extends Component {
     }
   }
 
+  onLineSubmit = (event) => {
+    event.preventDefault();
+    const {adj1, adj2, adv, noun1, noun2, verb} = this.state;
+    const newLine = `The ${adj1} ${noun1} ${adv} ${verb} the ${adj2} ${noun2}.`;
+    this.props.sendSubmissionCallback(newLine);
+    this.setState({
+      adj1: "",
+      adj2: "",
+      adv: "",
+      noun1: "",
+      noun2: "",
+      verb: "",
+    });
+  }
+
+  onFieldChangeHandler = (event) => {
+    const updateState = {};
+
+    const fieldName = event.target.name;
+    const value = event.target.value;
+    updateState[fieldName] = value;
+    this.setState(updateState);
+  }
+
+  generateFormFields = () => {
+    return this.props.fields.map((field, i) => {
+      if (field.key) {
+        return <input key={i}
+                      placeholder={field.placeholder}
+                      value={this.state[field.key]}
+                      name={field.key}
+                      type="text"
+                      className={ this.state[field.key] === "" ? "PlayerSubmissionForm__input--invalid" : "PlayerSubmissionForm__input"}
+                      onChange={ this.onFieldChangeHandler }/>
+                  } else {
+                    return field;
+                  }
+    });
+  }
+
   render() {
 
     return (
       <div className="PlayerSubmissionForm">
-        <h3>Player Submission Form for Player #{  }</h3>
+        <h3>Player Submission Form for Player #{ this.props.player }</h3>
 
-        <form className="PlayerSubmissionForm__form" onSubmit={this.onFormSubmit}>
+        <form className="PlayerSubmissionForm__form" onSubmit={this.onLineSubmit}>
 
           <div className="PlayerSubmissionForm__poem-inputs">
 
             {
-              this.populateInputs
+              this.generateFormFields()
             }
-            <input
-              placeholder="hm..."
-              type="text" />
 
           </div>
 
@@ -47,7 +84,7 @@ class PlayerSubmissionForm extends Component {
 
 PlayerSubmissionForm.propTypes = {
   fields: PropTypes.array.isRequired,
-  index: PropTypes.number.isRequired,
+  player: PropTypes.number.isRequired,
   isSubmitted: PropTypes.bool.isRequired,
   sendSubmissionCallback: PropTypes.func.isRequired,
 };
