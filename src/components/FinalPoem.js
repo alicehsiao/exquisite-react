@@ -6,19 +6,20 @@ const FinalPoem = (props) => {
 
   return (
     <div className="FinalPoem">
-      <section className="FinalPoem__poem">
+      {props.isSubmitted && <section className="FinalPoem__poem">
         <h3>Final Poem</h3>
         <section>
-          {props.poem.map((line) => <p>{line}</p>)}
+          {props.poem.map((line, i) => <p key={i}>{line}</p>)}
         </section>
-      </section>
+      </section>}
 
-      <div className="FinalPoem__reveal-btn-container">
-        <input type="button"
-               value="We are finished: Reveal the Poem"
-               className="FinalPoem__reveal-btn"
-               onClick={ props.onPoemSubmitCallback }/>
-      </div>
+      {!props.isSubmitted && 
+        <div className="FinalPoem__reveal-btn-container">
+          <input type="button"
+                 value="We are finished: Reveal the Poem"
+                 className="FinalPoem__reveal-btn"
+                 onClick={ props.onPoemSubmitCallback }/>
+        </div>}
     </div>
   );
 }
