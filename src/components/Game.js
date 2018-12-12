@@ -18,7 +18,7 @@ class Game extends Component {
   }
 
   submitLine = (newLine) => {
-    this.setState({index: this.state.index + 1});
+    this.setState({player: this.state.player + 1});
 
     const submissions = this.state.submissions;
     submissions.push(newLine);
